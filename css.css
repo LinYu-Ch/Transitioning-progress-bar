@@ -1,0 +1,113 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+/*set initial svg values and possible states*/
+svg {
+    height: auto;
+    width: 100%;
+    position: fixed;
+}
+svg[data-visible="hidden"]{
+    opacity: 0;
+}
+svg[data-visible="shown"]{
+    opacity: 1;
+}
+/*basically the "body" tag since streamelements widgets don't usually seem to have many html tags*/
+.main-container {
+	height: 100%;
+	width: 100%
+    margin: 0;
+  	padding: 0;
+	position: relative;
+}
+/*container for the svg layers*/
+.planter__body {
+    width: 100%;
+    aspect-ratio: 6.8/1;
+    background-color: rgb(93, 42, 11);
+    padding: 1rem 0;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    border-radius: 5px;
+    border: 5px solid rgb(93, 42, 11);
+
+    position: absolute;
+  	bottom: 0.5rem;
+}
+.planter__body::after {
+    width: calc(100% - 1px);
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    background-color: brown;
+    border-radius: 5px;
+
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+.progress__body {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 100px;
+    overflow: hidden;
+}
+.progress__bar {
+    width: 0;
+    height: 100%;
+
+    background-color: lightblue;
+    border-radius: 100px;
+
+    transition-duration: 1s;
+
+    position: relative;
+}
+.progress__bar::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    translate: 50% -50%;
+}
+
+.progress__bar::after {
+    background-color: lightblue;
+	animation: spin 20s linear infinite forwards;
+    border-radius: 80% 60%;
+    height: 10rem;
+    aspect-ratio: 1;
+}
+.progress__bar::before {
+    content: attr(data-value);
+    font-family: 'Indie Flower', cursive;
+    color: white;
+	
+    font-size: 2em;
+    position: absolute;
+    /*right: 0;*/
+    top: 50%;
+    z-index: 100;
+
+    transform: translate(50%, -50%);
+}
+@keyframes spin {
+	0% {
+		background-size: 100% 100%;
+        transform: rotate(0deg);
+	}
+
+	50% {
+		background-size: 80% 80%;
+        transform: rotate(180deg);
+	}
+
+	100% {
+		background-size: 100% 100%;
+        transform: rotate(360deg);
+	}
+}
+
